@@ -25,14 +25,13 @@ public class Sorteio {
         System.out.println("Digite um número de 1 a 100");
         Integer numero = leitor.nextInt();
         
+        Random aleatorio = new Random();
+        
         for (int i = 1; i <= 200; i++) {
-            Random aleatorio = new Random();
             Integer sorteado = aleatorio.nextInt(100) + 1;
             
-            if (primeiraVez == 0) {
-                if (sorteado.equals(numero)) {
-                    primeiraVez = i;
-                }
+            if (sorteado.equals(numero) && primeiraVez == 0) {
+                primeiraVez = i;
             }
             
             if (sorteado % 2 == 0) {
