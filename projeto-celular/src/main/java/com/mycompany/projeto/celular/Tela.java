@@ -5,7 +5,12 @@
  */
 package com.mycompany.projeto.celular;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JDialog;
+import javax.swing.Timer;
 
 /**
  *
@@ -13,11 +18,35 @@ import javax.swing.JDialog;
  */
 public class Tela extends javax.swing.JFrame {
 
+    Celular celular = new Celular();
+    LocalTime hora = LocalTime.now();
+    
     /**
      * Creates new form Tela
      */
     public Tela() {
         initComponents();
+        
+        Timer timer;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        
+        ActionListener action = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                hora = LocalTime.now();
+                lblHora.setText(hora.format(formatter));
+                celular.descarregar();
+                pgrBateria.setValue(celular.getBateria());
+                
+                if (celular.getBateria() <= 0) {
+                    Runtime.getRuntime().exit(0);
+                }
+            }
+        };
+        
+        timer = new Timer(1000, action);
+        timer.start();
     }
 
     /**
@@ -30,6 +59,12 @@ public class Tela extends javax.swing.JFrame {
     private void initComponents() {
 
         btnMensagens = new javax.swing.JButton();
+        btnTelefone = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        pgrBateria = new javax.swing.JProgressBar();
+        lblHora = new javax.swing.JLabel();
+        btnMusicas = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,21 +75,74 @@ public class Tela extends javax.swing.JFrame {
             }
         });
 
+        btnTelefone.setText("Telefone");
+        btnTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTelefoneActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("sem serviço");
+
+        pgrBateria.setValue(100);
+
+        lblHora.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+
+        btnMusicas.setText("Músicas");
+        btnMusicas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMusicasActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Timer");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnMensagens)
-                .addContainerGap(281, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnMensagens, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                            .addComponent(btnTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnMusicas, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblHora)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pgrBateria, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(btnMensagens)
-                .addContainerGap(168, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(lblHora))
+                    .addComponent(pgrBateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTelefone)
+                    .addComponent(btnMusicas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMensagens)
+                    .addComponent(jButton2))
+                .addGap(88, 88, 88))
         );
 
         pack();
@@ -66,6 +154,27 @@ public class Tela extends javax.swing.JFrame {
         newFrame.pack();
         newFrame.setVisible(true);
     }//GEN-LAST:event_btnMensagensActionPerformed
+
+    private void btnTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTelefoneActionPerformed
+        JDialog newFrame = new JDialog();
+        newFrame.setContentPane(new TelaTelefone());
+        newFrame.pack();
+        newFrame.setVisible(true);
+    }//GEN-LAST:event_btnTelefoneActionPerformed
+
+    private void btnMusicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMusicasActionPerformed
+        JDialog newFrame = new JDialog();
+        newFrame.setContentPane(new TelaMusicas());
+        newFrame.pack();
+        newFrame.setVisible(true);
+    }//GEN-LAST:event_btnMusicasActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JDialog newFrame = new JDialog();
+        newFrame.setContentPane(new TelaTimer());
+        newFrame.pack();
+        newFrame.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -104,5 +213,11 @@ public class Tela extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMensagens;
+    private javax.swing.JButton btnMusicas;
+    private javax.swing.JButton btnTelefone;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblHora;
+    private javax.swing.JProgressBar pgrBateria;
     // End of variables declaration//GEN-END:variables
 }

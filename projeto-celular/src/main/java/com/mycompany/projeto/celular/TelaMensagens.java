@@ -18,6 +18,8 @@ public class TelaMensagens extends javax.swing.JPanel {
      */
     public TelaMensagens() {
         initComponents();
+        
+        lblMensagensRecebidas.setText("<html> ");
     }
 
     /**
@@ -36,6 +38,7 @@ public class TelaMensagens extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        lblMensagensRecebidas = new javax.swing.JLabel();
         btnEnviarMensagem = new javax.swing.JButton();
         lblEnvio = new javax.swing.JLabel();
 
@@ -50,15 +53,21 @@ public class TelaMensagens extends javax.swing.JPanel {
 
         jLabel3.setText("Mensagens recebidas");
 
+        lblMensagensRecebidas.setText(":");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(lblMensagensRecebidas)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(lblMensagensRecebidas)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         btnEnviarMensagem.setText("enviar");
@@ -121,6 +130,13 @@ public class TelaMensagens extends javax.swing.JPanel {
     private void btnEnviarMensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarMensagemActionPerformed
         if (celular.validarNumero(txtNumero.getText())) {
             lblEnvio.setText("Mensagem enviada");
+            
+            String recebido = celular.enviarMensagem(txtMensagem.getText());
+            
+            if (recebido != null) {
+                lblMensagensRecebidas.setText(lblMensagensRecebidas.getText() + "<br> De: " + txtNumero.getText());
+                lblMensagensRecebidas.setText(lblMensagensRecebidas.getText() + "<br> Mensagem: " + recebido);
+            }
         }
         else {
             lblEnvio.setText("Número inváĺido");
@@ -136,6 +152,7 @@ public class TelaMensagens extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblEnvio;
+    private javax.swing.JLabel lblMensagensRecebidas;
     private javax.swing.JTextArea txtMensagem;
     private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
