@@ -13,5 +13,12 @@ public class ProgramaAluno {
     
     public static void main(String[] args) {
         
+        Aluno manoel = new Aluno(1192021, "Manoel Almeida");
+        manoel.adiciona(new Disciplina("Sistemas Operacionais", 10.0, 10.0, 0));
+        manoel.adiciona(new Disciplina("Linguagem de programação", 10.0, 10.0, 0));
+        manoel.adiciona(new Disciplina("Pesquisa e inovação", 10.0, 10.0, 0));
+        manoel.adiciona(new Disciplina("Socioemocional", 10.0, 10.0, 0));
+        
+        manoel.exibirBoletim();
     }
 }

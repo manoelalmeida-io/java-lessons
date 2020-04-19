@@ -24,50 +24,43 @@ public class Disciplina {
         this.notaSemestral = notaSemestral;
         this.quantFalta = quantFalta;
         
-        this.media = notaContinuada * 0.4 + notaIntegrada * 0.6;
-    }
-    
-    public String getNome() {
-        return nome;
+        // assumindo que notaSemestral = notaContinuada
+        this.media = notaContinuada * 0.4 + notaSemestral * 0.6;
+        this.aprovado = (media >= 6.0 && quantFalta <= 15);
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getNome() {
+        return nome;
     }
 
     public Double getNotaContinuada() {
         return notaContinuada;
     }
 
-    public void setNotaContinuada(Double notaContinuada) {
-        this.notaContinuada = notaContinuada;
-    }
-
     public Double getNotaSemestral() {
         return notaSemestral;
-    }
-
-    public void setNotaSemestral(Double notaSemestral) {
-        this.notaSemestral = notaSemestral;
     }
 
     public Integer getQuantFalta() {
         return quantFalta;
     }
 
-    public void setQuantFalta(Integer quantFalta) {
-        this.quantFalta = quantFalta;
-    }
-
     public Boolean getAprovado() {
         return aprovado;
     }
-    
+
     public Double getMedia() {
         return media;
     }
 
-    public void setMedia(Double media) {
-        this.media = media;
+    @Override
+    public String toString() {
+        return "Disciplina{" + 
+                "nome=" + nome + 
+                ", notaContinuada=" + notaContinuada + 
+                ", notaSemestral=" + notaSemestral + 
+                ", quantFalta=" + quantFalta + 
+                ", aprovado=" + aprovado + 
+                ", media=" + media + '}';
     }
 }
