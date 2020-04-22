@@ -26,12 +26,6 @@ public class Frutas {
     }
     
     public Boolean existeNaLista(String pesquisa) {
-        for (String fruta : frutas) {
-            if (fruta.equals(pesquisa)) {
-                return true;
-            }
-        }
-        
-        return false;
+        return frutas.contains(pesquisa);
     }
 }
